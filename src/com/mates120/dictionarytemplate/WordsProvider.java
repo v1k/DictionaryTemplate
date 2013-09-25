@@ -13,9 +13,10 @@ public class WordsProvider extends ContentProvider {
 	//Helper constants and the matcher
 	
 	private static final String AUTHORITY = 
-			"com.mates120.dictionarytemplate.data.WordsProvoder";
+			"com.mates120.dictionarytemplate.WordsProvider";
 	public static final int WORDS = 100;
 	public static final int WORD_ID = 110;
+	public static final int WORD_SOURCE = 111;
 	private static final String WORDS_BASE_PATH = "words";
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
 	        + "/" + WORDS_BASE_PATH);
@@ -28,7 +29,8 @@ public class WordsProvider extends ContentProvider {
 	        UriMatcher.NO_MATCH);
 	static {
 	    sURIMatcher.addURI(AUTHORITY, WORDS_BASE_PATH, WORDS);
-	    sURIMatcher.addURI(AUTHORITY, WORDS_BASE_PATH + "/#", WORD_ID);
+//	    sURIMatcher.addURI(AUTHORITY, WORDS_BASE_PATH + "/#", WORD_ID);
+//	    sURIMatcher.addURI(AUTHORITY, WORDS_BASE_PATH + "/#", WORD_SOURCE);
 	}
 	
 	private DatabaseHelper dbHelper;
@@ -36,6 +38,12 @@ public class WordsProvider extends ContentProvider {
 	@Override
 	public boolean onCreate() {
 		dbHelper = new DatabaseHelper(getContext());
+		DataSource ds = new DataSource(getContext());
+		ds.open();
+		for(int i = 0; i < 50; i ++){
+			ds.insertWord("word" + i, "value of "+ i);
+		}
+		ds.close();
 		return false;
 	}
 
@@ -46,10 +54,14 @@ public class WordsProvider extends ContentProvider {
 	    queryBuilder.setTables(DatabaseHelper.TABLE_WORDS);
 	    int uriType = sURIMatcher.match(uri);
 	    switch (uriType) {
-	    case WORD_ID:
-	        queryBuilder.appendWhere(DatabaseHelper.COL_WORDS_ID + "="
-	                + uri.getLastPathSegment());
-	        break;
+//	    case WORD_ID:
+//	        queryBuilder.appendWhere(DatabaseHelper.COL_WORDS_ID + "="
+//	                + uri.getLastPathSegment());
+//	        break;
+//	    case WORD_SOURCE:
+//	        queryBuilder.appendWhere(DatabaseHelper.COL_WORDS_SOURCE + "="
+//	                + uri.getLastPathSegment());
+//	        break;
 	    case WORDS:
 	        // no filter
 	        break;

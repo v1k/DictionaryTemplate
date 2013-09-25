@@ -13,19 +13,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name="com.mates120.dictionarytemplate.MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <provider
-    		android:authorities="com.mates120.dictionarytemplate.data.WordsProvoder"
-    		android:multiprocess="true"
-    		android:name="com.mates120.dictionarytemplate.data.WordsProvoder"></provider>
+            android:name=".WordsProvoder"
+    		android:authorities="com.mates120.dictionarytemplate.WordsProvider" />
     </application>
 
 </manifest>
