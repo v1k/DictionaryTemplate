@@ -3,7 +3,6 @@ package com.mates120.dictionary.dictionarytemplate;
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -16,7 +15,7 @@ public class WordsProvider extends ContentProvider {
 	//Helper constants and the matcher
 	
 	private static final String AUTHORITY = 
-			"com.mates120.dictionarytemplate.WordsProvider";
+			"com.mates120.dictionary.dictionarytemplate.WordsProvider";
 	public static final int WORDS = 100;
 	public static final int CREATE_DICTIONARY = 110;
 	private static final String WORDS_BASE_PATH = "words";
@@ -31,7 +30,7 @@ public class WordsProvider extends ContentProvider {
 	        UriMatcher.NO_MATCH);
 	static {
 	    sURIMatcher.addURI(AUTHORITY, WORDS_BASE_PATH, WORDS);
-	    sURIMatcher.addURI(AUTHORITY, WORDS_BASE_PATH + "/#", CREATE_DICTIONARY);
+	    sURIMatcher.addURI(AUTHORITY, WORDS_BASE_PATH + "/create", CREATE_DICTIONARY);
 	}
 	
 	private DatabaseHelper dbHelper;
