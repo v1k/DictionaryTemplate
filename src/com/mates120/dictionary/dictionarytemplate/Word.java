@@ -1,4 +1,4 @@
-package com.mates120.dictionarytemplate;
+package com.mates120.dictionary.dictionarytemplate;
 
 public class Word {
 	private long id;

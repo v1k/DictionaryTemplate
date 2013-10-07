@@ -1,7 +1,8 @@
-package com.mates120.dictionarytemplate;
+package com.mates120.dictionary.dictionarytemplate;
+
+import android.content.Context;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
-import android.content.Context;
 
 public class DatabaseHelper extends SQLiteAssetHelper
 {	

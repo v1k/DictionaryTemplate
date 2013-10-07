@@ -1,22 +1,24 @@
-package com.mates120.dictionarytemplate;
+package com.mates120.dictionary.dictionarytemplate;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 public class WordsProvider extends ContentProvider {
 	
+	private final String dictionaryName = "Template Dictionary";
 	//Helper constants and the matcher
 	
 	private static final String AUTHORITY = 
 			"com.mates120.dictionarytemplate.WordsProvider";
 	public static final int WORDS = 100;
-	public static final int WORD_ID = 110;
-	public static final int WORD_SOURCE = 111;
+	public static final int CREATE_DICTIONARY = 110;
 	private static final String WORDS_BASE_PATH = "words";
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
 	        + "/" + WORDS_BASE_PATH);
@@ -29,8 +31,7 @@ public class WordsProvider extends ContentProvider {
 	        UriMatcher.NO_MATCH);
 	static {
 	    sURIMatcher.addURI(AUTHORITY, WORDS_BASE_PATH, WORDS);
-//	    sURIMatcher.addURI(AUTHORITY, WORDS_BASE_PATH + "/#", WORD_ID);
-//	    sURIMatcher.addURI(AUTHORITY, WORDS_BASE_PATH + "/#", WORD_SOURCE);
+	    sURIMatcher.addURI(AUTHORITY, WORDS_BASE_PATH + "/#", CREATE_DICTIONARY);
 	}
 	
 	private DatabaseHelper dbHelper;
@@ -38,12 +39,6 @@ public class WordsProvider extends ContentProvider {
 	@Override
 	public boolean onCreate() {
 		dbHelper = new DatabaseHelper(getContext());
-		DataSource ds = new DataSource(getContext());
-		ds.open();
-		for(int i = 0; i < 50; i ++){
-			ds.insertWord("word" + i, "value of "+ i);
-		}
-		ds.close();
 		return false;
 	}
 
@@ -54,14 +49,11 @@ public class WordsProvider extends ContentProvider {
 	    queryBuilder.setTables(DatabaseHelper.TABLE_WORDS);
 	    int uriType = sURIMatcher.match(uri);
 	    switch (uriType) {
-//	    case WORD_ID:
-//	        queryBuilder.appendWhere(DatabaseHelper.COL_WORDS_ID + "="
-//	                + uri.getLastPathSegment());
-//	        break;
-//	    case WORD_SOURCE:
-//	        queryBuilder.appendWhere(DatabaseHelper.COL_WORDS_SOURCE + "="
-//	                + uri.getLastPathSegment());
-//	        break;
+	    case CREATE_DICTIONARY:
+	    	MatrixCursor cursor = new MatrixCursor(new String[]{"dictionaryName"});
+	    	cursor.addRow(new String[]{dictionaryName});
+	    	createDatabaseFromAssets();
+	    	return cursor;
 	    case WORDS:
 	        // no filter
 	        break;
@@ -97,5 +89,10 @@ public class WordsProvider extends ContentProvider {
 			String[] selectionArgs) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	private void createDatabaseFromAssets(){
+		dbHelper.getWritableDatabase();
+		dbHelper.close();
 	}
 }
