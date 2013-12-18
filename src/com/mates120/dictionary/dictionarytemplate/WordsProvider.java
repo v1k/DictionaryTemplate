@@ -60,7 +60,7 @@ public class WordsProvider extends ContentProvider {
 	        throw new IllegalArgumentException("Unknown URI");
 	    }
 	    Cursor cursor = queryBuilder.query(dbHelper.getReadableDatabase(),
-	            projection, selection, selectionArgs, null, null, sortOrder);
+	            projection, selection, selectionArgs, null, null, sortOrder, "20");
 	    cursor.setNotificationUri(getContext().getContentResolver(), uri);
 	    return cursor;
 	}
