@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dict_name">Англо-русский словарь</string>
+    <string name="app_name">MyWord: англо-русский словарь</string>
+    <string name="action_settings">Settings</string>
+</resources>

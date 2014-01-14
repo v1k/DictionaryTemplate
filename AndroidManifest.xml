@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mates120.dictionary.dictionarytemplate"
+    package="com.mates120.dictionary.engrus"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,8 +14,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <provider
-            android:name="com.mates120.dictionary.dictionarytemplate.WordsProvider"
-    		android:authorities="com.mates120.dictionary.dictionarytemplate.WordsProvider" />
+            android:name="com.mates120.dictionary.engrus.WordsProvider"
+    		android:authorities="com.mates120.dictionary.engrus.WordsProvider" />
     </application>
 
 </manifest>
