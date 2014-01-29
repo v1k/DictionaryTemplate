@@ -11,7 +11,7 @@ import android.net.Uri;
 
 public class WordsProvider extends ContentProvider
 {	
-	private static final String AUTHORITY = "com.mates120.dictionary.engrus.WordsProvider";
+	private static String AUTHORITY = "com.mates120.dictionary.engrus.WordsProvider";
 	public static final int WORDS = 100;
 	public static final int CREATE_DICTIONARY = 110;
 	public static final int HINTS = 111;
@@ -36,6 +36,7 @@ public class WordsProvider extends ContentProvider
 	@Override
 	public boolean onCreate()
 	{
+//		AUTHORITY = getContext().getString(R.string.authority);
 		dbHelper = new DatabaseHelper(getContext());
 		return false;
 	}
@@ -50,9 +51,10 @@ public class WordsProvider extends ContentProvider
 	    switch (uriType)
 	    {
 		    case CREATE_DICTIONARY:
-		    	MatrixCursor matrix_cursor = new MatrixCursor(new String[]{"dictionaryName"});
+		    	MatrixCursor matrix_cursor = new MatrixCursor(new String[]{"dictionaryName", "dictionaryType"});
 		    	String dictionaryName = getContext().getResources().getString(R.string.dict_name);
-		    	matrix_cursor.addRow(new String[]{dictionaryName});
+		    	String dictionaryType = "sql";
+		    	matrix_cursor.addRow(new String[]{dictionaryName, dictionaryType});
 		    	createDatabaseFromAssets();
 		    	cursor = matrix_cursor;
 		    	break;
